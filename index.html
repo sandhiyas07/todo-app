@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My To-Do List</title>
+
+  <!-- Link to our stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts: a unique pairing -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- ===== Header ===== -->
+    <header class="app-header">
+      <h1>My Tasks</h1>
+      <p class="subtitle">Stay focused. Get things done.</p>
+    </header>
+
+    <!-- ===== Add Task Form ===== -->
+    <div class="add-task-card">
+      <input
+        type="text"
+        id="taskInput"
+        placeholder="What needs to be done?"
+        maxlength="100"
+        autocomplete="off"
+      />
+      <!-- Due date input (optional feature) -->
+      <input
+        type="date"
+        id="dueDateInput"
+        title="Set a due date (optional)"
+      />
+      <button id="addBtn" onclick="addTask()">+ Add</button>
+    </div>
+
+    <!-- ===== Filter Buttons (optional feature) ===== -->
+    <div class="filters">
+      <button class="filter-btn active" onclick="setFilter('all')">All</button>
+      <button class="filter-btn" onclick="setFilter('active')">Active</button>
+      <button class="filter-btn" onclick="setFilter('completed')">Completed</button>
+    </div>
+
+    <!-- ===== Task Count Summary ===== -->
+    <p class="task-summary" id="taskSummary"></p>
+
+    <!-- ===== Task List ===== -->
+    <!-- Tasks are dynamically inserted here by script.js -->
+    <ul class="task-list" id="taskList"></ul>
+
+    <!-- ===== Empty State Message ===== -->
+    <div class="empty-state" id="emptyState">
+      <span>🎉</span>
+      <p>Nothing here! Add a task above.</p>
+    </div>
+
+    <!-- ===== Clear Completed Button ===== -->
+    <div class="footer-actions">
+      <button class="clear-btn" onclick="clearCompleted()">Clear Completed</button>
+    </div>
+
+  </div>
+
+  <!-- Link to our JavaScript file — placed at the bottom so HTML loads first -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+/* =============================================
+   STYLE.CSS — To-Do List App
+   A warm editorial aesthetic with ink & paper tones
+   ============================================= */
+
+/* ── CSS Variables (change these to retheme the whole app) ── */
+:root {
+  --bg:         #f5f0e8;        /* parchment background */
+  --card:       #fffdf7;        /* card surface */
+  --ink:        #1a1a2e;        /* primary text */
+  --muted:      #7a7a8a;        /* secondary text */
+  --accent:     #c0392b;        /* red accent */
+  --accent-alt: #e67e22;        /* orange accent */
+  --done-bg:    #eaf4ea;        /* completed task bg */
+  --done-text:  #888;           /* completed task text */
+  --border:     #e0d9cc;        /* subtle border */
+  --shadow:     0 4px 24px rgba(0,0,0,0.08);
+  --radius:     12px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  /* Subtle paper grain texture via CSS */
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(192,57,43,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(230,126,34,0.04) 0%, transparent 50%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 16px 80px;
+  color: var(--ink);
+}
+
+/* ── App Container ── */
+.app-wrapper {
+  width: 100%;
+  max-width: 560px;
+}
+
+/* ── Header ── */
+.app-header {
+  margin-bottom: 28px;
+}
+
+.app-header h1 {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Add Task Card ── */
+.add-task-card {
+  display: flex;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* Text input for task name */
+#taskInput {
+  flex: 1 1 180px;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: transparent;
+  padding: 6px 4px;
+}
+
+#taskInput::placeholder {
+  color: var(--muted);
+}
+
+/* Date picker input */
+#dueDateInput {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: var(--bg);
+  cursor: pointer;
+  outline: none;
+}
+
+#dueDateInput:focus {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+/* Add button */
+#addBtn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s;
+  white-space: nowrap;
+}
+
+#addBtn:hover {
+  background: #a93226;
+}
+
+#addBtn:active {
+  transform: scale(0.97);
+}
+
+/* ── Filter Buttons ── */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Active filter gets accent fill */
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  font-weight: 500;
+}
+
+/* ── Task Summary ── */
+.task-summary {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+/* ── Task List ── */
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Individual Task Item ── */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  /* Slide-in animation when added */
+  animation: slideIn 0.25s ease;
+  transition: opacity 0.2s;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom checkbox */
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Task text + due date area */
+.task-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-text {
+  font-size: 0.97rem;
+  color: var(--ink);
+  word-break: break-word;
+  transition: color 0.2s;
+}
+
+/* Due date label beneath task text */
+.task-due {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* Overdue tasks get a red due date */
+.task-due.overdue {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ── Completed State ── */
+.task-item.completed {
+  background: var(--done-bg);
+  border-color: #d0e8d0;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: var(--done-text);
+}
+
+/* ── Delete Button ── */
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.delete-btn:hover {
+  color: var(--accent);
+  background: rgba(192,57,43,0.08);
+}
+
+/* ── Empty State ── */
+.empty-state {
+  text-align: center;
+  padding: 48px 0 32px;
+  color: var(--muted);
+  display: none; /* shown via JS */
+}
+
+.empty-state span {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+}
+
+/* ── Footer Actions ── */
+.footer-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clear-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-family: var(--font-body);
+  font-size: 0.83rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.clear-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .app-header h1 { font-size: 2rem; }
+  .add-task-card { flex-direction: column; }
+  #addBtn { width: 100%; }
+  #dueDateInput { width: 100%; }
+}
